@@ -76,18 +76,18 @@ describe('Test', function() {
     tree3N3.right = tree3N4;
   });
 
-  it('Should Pass 1', function() {
+  it('Should Pass 0', function() {
     invertTree(tree0N1);
     should.not.exist(tree0N1);
   });
 
-  it('Should Pass 2', function() {
+  it('Should Pass 1', function() {
     invertTree(tree1N1);
     should.exist(tree1N1);
     should.not.exist(tree1N1.left);
   });
 
-  it('Should Pass 3', function() {
+  it('Should Pass 2', function() {
     should.exist(tree2N1.left);
     should.exist(tree2N1.left.left);
     invertTree(tree2N1);
@@ -95,7 +95,7 @@ describe('Test', function() {
     should.exist(tree2N1.right.right);
   });
 
-  it('Should Pass 4', function() {
+  it('Should Pass 3', function() {
     should.exist(tree3N1.left);
     should.exist(tree3N1.right);
     should.exist(tree3N1.right.right);
