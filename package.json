@@ -1,0 +1,25 @@
+{
+    "name": "crack-lintcode",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/taoning2014/crack-lintcode.git"
+    },
+    "devDependencies": {
+        "eslint": "^2.9.0",
+        "eslint-config-airbnb": "^9.0.1",
+        "eslint-plugin-meteor": "^3.5.2"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/taoning2014/crack-lintcode/issues"
+    },
+    "homepage": "https://github.com/taoning2014/crack-lintcode#readme"
+}
