@@ -48,6 +48,32 @@ var _postorderTraversal = function(node, postOrder) {
   postOrder.push(node.val);
 };
 
+var postorderTraversal = function(root) {
+  var postOrder = [];
+  var stack = [];
+
+  if (!root) {
+    return postOrder;
+  }
+
+  stack.push(root);
+  while (stack.length) {
+    var temp = stack.pop();
+    if (temp instanceof TreeNode) {
+      stack.push(temp.val);
+      if (temp.right) {
+        stack.push(temp.right);
+      }
+      if (temp.left) {
+        stack.push(temp.left);
+      }
+    } else {
+      postOrder.push(temp);
+    }
+  }
+
+  return postOrder;
+}
 describe('Test', function() {
   var n0;
   var n1;
