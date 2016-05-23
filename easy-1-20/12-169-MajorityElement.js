@@ -37,6 +37,28 @@ var majorityElement = function(nums) {
   return parseInt(result);
 };
 
+// Solution 2. Similar to solution 1, except keep track of the curMajory to avoid 2nd loop
+// var majorityElement = function(nums) {
+//     var i;
+//     var recorder = {}
+//     var curMajorityCount = 1;
+//     var curMajorityElem = nums[0];
+
+//     for (i = 0; i < nums.length; i++) {
+//         if (!recorder[nums[i]]) {
+//             recorder[nums[i]] = 1;
+//         } else {
+//             recorder[nums[i]]++;
+//             if (recorder[nums[i]] > curMajorityCount) {
+//                 curMajorityCount = recorder[nums[i]];
+//                 curMajorityElem = nums[i];
+//             }
+//         }
+//     }
+
+//     return curMajorityElem;
+// };
+
 describe('Test', function() {
   it('Should Pass', function() {
     majorityElement([1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 5, 6]).should.equal(3);
