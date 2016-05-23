@@ -45,6 +45,33 @@ var invertTree = function(root) {
   return root;
 };
 
+// Solution 2, better to refactor the switch function out
+// function invertChildren(node) {
+//     var temp = node.left;
+//     node.left = node.right;
+//     node.right = temp;
+// }
+
+// /**
+//  * @param {TreeNode} root
+//  * @return {TreeNode}
+//  */
+// var invertTree = function(root) {
+//     if (!root) {
+//         return root;
+//     }
+
+//     invertChildren(root);
+//     if (root.left) {
+//         invertTree(root.left);
+//     }
+//     if (root.right) {
+//         invertTree(root.right);
+//     }
+
+//     return root;
+// };
+
 describe('Test', function() {
   var tree0N1;
   var tree1N1;
