@@ -38,6 +38,27 @@ var moveZeroes = function(nums) {
   }
 };
 
+// Solution 2. Solution 1 use splice which why copy array
+// var moveZeroes = function(nums) {
+//     var p;
+//     var q;
+
+//     if (!nums || nums.length === 0) {
+//         return;
+//     }
+
+//     for (p = 0, q = 0; q < nums.length; ) {
+//         if (nums[q] === 0) {
+//             q++;
+//         } else if(nums[q] !== 0 && p !== q){
+//             exchange(p++, q++, nums);
+//         } else {
+//             p++;
+//             q++;
+//         }
+//     }
+// };
+
 describe('Test', function() {
   var array0 = [];
   var array1 = [0];
