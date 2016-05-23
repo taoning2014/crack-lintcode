@@ -3,6 +3,10 @@
 // For example,
 // s = "anagram", t = "nagaram", return true.
 // s = "rat", t = "car", return false.
+
+// Note:
+// 1, 不能用 '^'，因为输入可能是 'aa', 'bb'
+// 2, '^' 使用方法： a.charCodeAt(1) ^ a.charCodeAt(1)
 'use strict';
 require('chai').should();
 
