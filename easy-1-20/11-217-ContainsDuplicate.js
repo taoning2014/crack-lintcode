@@ -26,6 +26,29 @@ var containsDuplicate = function(nums) {
   return false;
 };
 
+
+// var containsDuplicate = function(nums) {
+//   var recorder = {};
+//   var result = false;
+
+//   if (!nums) {
+//     return false;
+//   }
+
+//   nums.forEach(function(val) {
+//     if (recorder[val]) {
+//       // This will only return in the inner function
+//       // JS这个坑太大了
+//       // BUG: return true
+//       result = true;
+//     } else {
+//       recorder[val] = true;
+//     }
+//   });
+
+//   return result;
+// };
+
 describe('Test', function() {
   it('empty array should return false', function() {
     containsDuplicate(null).should.be.false;
