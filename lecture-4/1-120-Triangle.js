@@ -71,7 +71,7 @@ require('chai').should();
 
 //   record = [];
 
-//   // Bug, can use fill, it will do a shallow copy of this empty array
+//   // Bug, can't use fill, it will do a shallow copy of this empty array
 //   // record.fill([]);
 //   for (i = 0; i < triangle.length; i++) {
 //     record[i] = [];
