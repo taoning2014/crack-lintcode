@@ -54,6 +54,28 @@ var removeDuplicates = function(nums) {
   return r;
 };
 
+// Solution 2. No time out solution.
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+  var i;
+  var j;
+
+  if (!nums || !nums.length) {
+    return 0;
+  }
+
+  for (i = 1, j = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[i - 1]) {
+      nums[j++] = nums[i];
+    }
+  }
+
+  return j;
+};
+
 describe('Test', function() {
   it('Should pass', function() {
     console.log(removeDuplicates([]));

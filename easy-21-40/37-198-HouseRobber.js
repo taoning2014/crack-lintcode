@@ -10,7 +10,7 @@
 'use strict';
 require('chai').should();
 
-// Solution 1. Wrong。只想到了从开始位置或者开始位置的下个位置开始，并且一直隔一个，偷道最后，不能pass[2,1,1,2]
+// Solution 1. Wrong。只想到了从开始位置或者开始位置的下个位置开始，并且一直隔一个，偷到最后，不能pass[2,1,1,2]
 /**
  * @param {number[]} nums
  * @return {number}
@@ -54,11 +54,12 @@ var rob = function(nums) {
   for (i = 0; i < nums.length; i++) {
     sumArray[i] = nums[i];
   }
-
+  console.log(sumArray);
   for (i = 1; i < nums.length; i++) {
     for (j = 0; j < i - 1; j++) {
       if (sumArray[i] < sumArray[j] + nums[i]) {
         sumArray[i] = sumArray[j] + nums[i];
+        console.log(sumArray);
       }
     }
   }
@@ -68,26 +69,6 @@ var rob = function(nums) {
 
 describe('Test', function() {
   it('Should pass', function() {
-    rob([]).should.equal(0);
-  });
-
-  it('Should pass', function() {
-    rob([1]).should.equal(1);
-  });
-
-  it('Should pass', function() {
-    rob([1, 10]).should.equal(10);
-  });
-
-  it('Should pass', function() {
-    rob([1, 10, 1]).should.equal(10);
-  });
-
-  it('Should pass', function() {
-    rob([5, 6, 2]).should.equal(7);
-  });
-
-  it('Should pass', function() {
-    rob([2, 1, 1, 2]).should.equal(4);
+    console.log(rob([2, 1, 1, 1, 2]));
   });
 });

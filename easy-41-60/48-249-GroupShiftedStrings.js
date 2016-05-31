@@ -18,7 +18,8 @@
 // =====
 // Note:
 // 好吧，小小吐槽下，这道题都能算easy的？
-// 1, 注意在题设中自己漏掉的细节["az","ba"] and For the return value, each inner list's elements must follow the lexicographic order.
+// 1, 注意在题设中自己漏掉的细节["az","ba"] and For the return value,
+// each inner list's elements must follow the lexicographic order.
 
 'use strict';
 require('chai').should();

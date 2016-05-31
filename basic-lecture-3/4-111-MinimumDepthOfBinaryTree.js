@@ -53,5 +53,5 @@ var minDepth = function(root) {
   rightDep = minDepth(root.right);
   rightDep = (rightDep === 0 ? Number.MAX_VALUE : rightDep);
 
-  return Math.min(min + 1);
+  return Math.min(leftDep, rightDep) + 1;
 };
