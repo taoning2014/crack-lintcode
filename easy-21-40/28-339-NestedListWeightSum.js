@@ -38,6 +38,8 @@
 // =====
 // Note:
 // Can't pass leetcode because leetcode pass in some thing that's not an array
+// Because they are not the regular array, as mentioned in the code above, they are
+// create by the above functions. Notice the param type.
 'use strict';
 require('chai').should();
 
@@ -46,24 +48,23 @@ function _depthSum(curList, curDepth) {
   var i;
 
   for (i = 0; i < curList.length; i++) {
-    if (Array.isArray(curList[i])) {
-      curSum += _depthSum(curList[i], curDepth + 1);
+    if (!curList[i].isInteger()) {
+      curSum += _depthSum(curList[i].getList(), curDepth + 1);
     } else {
-      curSum += curList[i] * curDepth;
+      curSum += curList[i].getInteger() * curDepth;
     }
   }
   return curSum;
 }
+
 /**
  * @param {NestedInteger[]} nestedList
  * @return {number}
  */
 var depthSum = function(nestedList) {
-
   if (!nestedList) {
     return sum;
   }
-
 
   return _depthSum(nestedList, 1);
 
