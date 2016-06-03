@@ -18,25 +18,26 @@
 require('chai').should();
 
 // Solution 1.
-function binarySearch(nums, target) {
-  var l = 0;
-  var r = nums.length - 1;
-  var mid;
+// function binarySearch(nums, target) {
+//   var l = 0;
+//   var r = nums.length - 1;
+//   var mid;
 
-  while (l <= r) {
-    mid = l + Math.floor((r - l) / 2);
-    if (target < nums[mid]) {
-      r = mid - 1;
-    } else if (target > nums[mid]) {
-      l = mid + 1;
-    } else {
-      return mid;
-    }
-  }
+//   while (l <= r) {
+//     mid = l + Math.floor((r - l) / 2);
+//     if (target < nums[mid]) {
+//       r = mid - 1;
+//     } else if (target > nums[mid]) {
+//       l = mid + 1;
+//     } else {
+//       return mid;
+//     }
+//   }
 
-  return -1;
-}
+//   return -1;
+// }
 
+// Solution 1. Sort(nlogn) + BS(nlogn)
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -82,27 +83,72 @@ function binarySearch(nums, target) {
 //   return [-1, -1];
 // };
 
-// Solution 2.
+// Solution 2.(Hash + 查询) n
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+// var twoSum = function(nums, target) {
+//   var map = {};
+//   var i;
+
+//   for (i = 0; i < nums.length; i++) {
+//     // BUG: can't do if (map[nums[i]]) since when the key is 0, this will faulse
+//     if (map[nums[i]] !== undefined) {
+//       return [map[nums[i]] + 1, i + 1];
+//     }
+
+//     map[target - nums[i]] = i;
+//   }
+
+//   return [-1, -1];
+// }
+
+// Solution 3.(排序(nlogn) ＋ 双指针扫描(n)）
 /**
  * @param {number[]} nums
  * @param {number} target
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-  var map = {};
-  var i;
+  var origin;
+  var l;
+  var r;
+  var p1;
+  var p2;
 
-  for (i = 0; i < nums.length; i++) {
-    // BUG: can't do if (map[nums[i]]) since when the key is 0, this will faulse
-    if (map[nums[i]] !== undefined) {
-      return [map[nums[i]] + 1, i + 1];
+  if (!nums) {
+    return [-1, -1];
+  }
+
+  l = 0;
+  r = nums.length - 1;
+  origin = nums.slice();
+
+  nums.sort(function(p, q){
+    return parseInt(p, 10) - parseInt(q, 10);
+  });
+
+  while (l < r) {
+    if (target < nums[l] + nums[r]) {
+      r--;
+    } else if (target > nums[l] + nums[r]) {
+      l++;
+    } else {
+      // find 2 pointers, need to convert back to origin location
+      p1 = origin.indexOf(nums[l]);
+      p2 = origin.indexOf(nums[r]);
+      if (p1 === p2) {
+        p2 = origin.indexOf(nums[r], p1 + 1);
+      }
+      return [Math.min(p1, p2), Math.max(p1, p2)];
     }
-
-    map[target - nums[i]] = i;
   }
 
   return [-1, -1];
 }
+
 describe('Test', function() {
   it('Should pass', function() {
     // console.log(twoSum([2, 7, 11, 15], 13));
