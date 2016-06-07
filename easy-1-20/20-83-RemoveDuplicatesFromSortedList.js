@@ -13,6 +13,7 @@ function ListNode(val) {
   this.next = null;
 }
 
+// Solution 1.
 // @param {ListNode} head
 // @return {ListNode}
 var deleteDuplicates = function(head) {
@@ -90,3 +91,26 @@ describe('Test', function() {
     should.not.exist(head.next.next.next.next);
   });
 });
+
+
+// Solution 2.
+// @param {ListNode} head
+// @return {ListNode}
+var deleteDuplicates = function(head) {
+  var node;
+
+  if (!head) {
+    return null;
+  }
+
+  node = head;
+  while (node.next) {
+    if (node.val === node.next.val) {
+      node.next = node.next.next;
+    } else {
+      node = node.next;
+    }
+  }
+
+  return head;
+}
