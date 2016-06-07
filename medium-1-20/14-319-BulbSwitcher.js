@@ -57,6 +57,12 @@ var bulbSwitch = function(n) {
   return result;
 };
 
+
+// Solution 2. Refer: https://leetcode.com/discuss/89449/the-simplest-and-most-efficient-solution-in-well-explained
+var bulbSwitch = function(n) {
+  return Math.floor(Math.sqrt(n));
+}
+
 describe('Test', function() {
   it('Should pass', function() {
     console.log(bulbSwitch(1));
