@@ -15,24 +15,24 @@
 'use strict';
 require('chai').should();
 
-function binarySearch(nums, target, searchStart, searchEnd) {
-  var l = searchStart;
-  var r = searchEnd;
-  var mid;
+// function binarySearch(nums, target, searchStart, searchEnd) {
+//   var l = searchStart;
+//   var r = searchEnd;
+//   var mid;
 
-  while (l <= r) {
-    mid = l + Math.floor((r - l) / 2);
-    if (target < nums[mid]) {
-      r = mid - 1;
-    } else if (target > nums[mid]) {
-      l = mid + 1;
-    } else {
-      return mid;
-    }
-  }
+//   while (l <= r) {
+//     mid = l + Math.floor((r - l) / 2);
+//     if (target < nums[mid]) {
+//       r = mid - 1;
+//     } else if (target > nums[mid]) {
+//       l = mid + 1;
+//     } else {
+//       return mid;
+//     }
+//   }
 
-  return l;
-}
+//   return l;
+// }
 
 /**
  * initialize your data structure here
@@ -135,8 +135,53 @@ function binarySearch(nums, target, searchStart, searchEnd) {
  * initialize your data structure here
  * @constructor
  */
+// var TwoSum = function() {
+//   this.nums = {};
+// };
+
+/**
+ * Add the number to an internal data structure.
+ * @param {number} input
+ * @returns {void}
+ */
+// TwoSum.prototype.add = function(input) {
+//   if (this.nums[input]) {
+//     this.nums[input] = 2;
+//   } else {
+//     this.nums[input] = 1;
+//   }
+// };
+
+/**
+ * Find if there exists any pair of numbers which sum is equal to the value.
+ * @param {number} val
+ * @returns {boolean}
+ */
+// TwoSum.prototype.find = function(val) {
+//   var keys = Object.keys(this.nums);
+//   var i;
+
+//   for (i = 0; i < keys.length; i++) {
+//     if (this.nums[val - keys[i]]) {
+//       if (val === 2 * keys[i]) {
+//         return this.nums[keys[i]] === 2;
+//       } else {
+//         return true;
+//       }
+//     }
+//   }
+
+//   return false;
+// };
+
+
+// Solution 4: Optimize from https://leetcode.com/discuss/92861/finally-got-accept-884ms-javascript-solution-tle
+/**
+ * initialize your data structure here
+ * @constructor
+ */
 var TwoSum = function() {
-  this.nums = {};
+  this.nums = new Map();
 };
 
 /**
@@ -145,10 +190,10 @@ var TwoSum = function() {
  * @returns {void}
  */
 TwoSum.prototype.add = function(input) {
-  if (this.nums[input]) {
-    this.nums[input] = 2;
+  if (this.nums.has(input)) {
+    this.nums.set(input, 2);
   } else {
-    this.nums[input] = 1;
+    this.nums.set(input, 1);
   }
 };
 
@@ -158,21 +203,19 @@ TwoSum.prototype.add = function(input) {
  * @returns {boolean}
  */
 TwoSum.prototype.find = function(val) {
-  var keys = Object.keys(this.nums);
-  var i;
+  var num1;
+  var num2;
 
-  for (i = 0; i < keys.length; i++) {
-    if (this.nums[val - keys[i]]) {
-      if (val === 2 * keys[i]) {
-        return this.nums[keys[i]] === 2;
-      } else {
-        return true;
-      }
+  for (num1 of this.nums.keys()) {
+    num2 = val - num1;
+    if (this.nums.has(num2)) {
+      return (num1 !== num2 || this.nums.get(num2) === 2);
     }
   }
 
   return false;
 };
+
 /**
  * Your TwoSum object will be instantiated and called as such:
  * var twoSum = new TwoSum();
