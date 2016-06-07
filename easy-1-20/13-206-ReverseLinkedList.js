@@ -9,6 +9,7 @@ function ListNode(val) {
   this.next = null;
 }
 
+// Solution 1.
 // * @param {ListNode} head
 // * @return {ListNode}
 var reverseList = function(head) {
@@ -27,6 +28,31 @@ var reverseList = function(head) {
     if (next !== null) {
       next = next.next;
     }
+  }
+
+  return pre;
+};
+
+
+// Solution 2.
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+  var pre;
+  var temp;
+
+  if (!head) {
+    return head;
+  }
+
+  pre = null;
+  while(head) {
+    temp = head.next;
+    head.next = pre;
+    pre = head;
+    head = temp;
   }
 
   return pre;
