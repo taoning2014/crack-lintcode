@@ -4,6 +4,32 @@
 'use strict';
 require('chai').should();
 
+// Solution 1. O(n*n)
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var containsNearbyDuplicate = function(nums, k) {
+  var i;
+  var j;
+
+  if (!nums || !Number.isInteger(k) || k < 1) {
+    return false;
+  }
+
+  for (i = 0; i < nums.length - 1; i++) {
+    for (j = i + 1; j < nums.length && j <= i + k; j++) {
+      if (nums[i] === nums[j]) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+};
+
+// Solution 2. O(n)
 /**
  * @param {number[]} nums
  * @param {number} k
