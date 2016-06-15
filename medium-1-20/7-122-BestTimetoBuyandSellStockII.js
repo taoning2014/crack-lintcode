@@ -7,6 +7,7 @@
 'use strict';
 require('chai').should();
 
+// Solution 1.
 /**
  * @param {number[]} prices
  * @return {number}
@@ -40,10 +41,35 @@ var maxProfit = function(prices) {
   return maxProfit;
 };
 
+
+// Solution 2 from: http://www.jiuzhang.com/solutions/best-time-to-buy-and-sell-stock-ii/
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit2 = function(prices) {
+  var profit = 0;
+  var diff;
+  var i;
+
+  if (!prices) {
+    return NaN;
+  }
+
+  for (i = 1; i < prices.length; i++) {
+    diff = prices[i] - prices[i - 1];
+    if (diff > 0) {
+      profit += diff;
+    }
+  }
+
+  return profit;
+};
+
 describe('Test', function() {
   it('Should pass', function() {
-    console.log(maxProfit([0, 1, 2, 1, 2, 4, 1, 3])); // 7
-    console.log(maxProfit([2, 2, 5])); // 3
-    console.log(maxProfit([5, 2, 2, 3])); // 3
+    console.log(maxProfit2([0, 1, 2, 1, 2, 4, 1, 3])); // 7
+    console.log(maxProfit2([2, 2, 5])); // 3
+    console.log(maxProfit2([5, 2, 2, 3])); // 3
   });
 });
