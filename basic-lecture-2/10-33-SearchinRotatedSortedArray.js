@@ -1,4 +1,3 @@
-// Unsolved, as I don't know how to proved they are at same side
 // Suppose a sorted array is rotated at some pivot unknown to you beforehand.
 
 // (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
@@ -9,16 +8,13 @@
 'use strict';
 require('chai').should();
 
-function onSameSide(p1, p2, p3) {
-  return p1 <= p2 || p1 >= p3
-}
-
 /**
  * @param {number[]} nums
  * @param {number} target
  * @return {number}
  */
 var search = function(nums, target) {
+  var moveCount = 0;
   var l;
   var r;
   var mid;
@@ -32,19 +28,36 @@ var search = function(nums, target) {
   r = nums.length - 1;
   lastEleValue = nums[nums.length - 1];
 
+  // solve the special case, where the are duplicate element at rotate positon
+  // move the left duplicate to right, in this case, need to record how many
+  // moved manually
+  while (nums.length > 1 && nums[0] === lastEleValue) {
+    let temp = nums.shift();
+    nums.push(temp);
+    moveCount++;
+  }
+
   while (l <= r) {
     mid = l + Math.floor((r - l) / 2);
-    if (target < nums[mid] && onSameSide(lastEleValue, target, nums[mid])) {
-      r = mid - 1;
-    } else if (target < nums[mid]) {
-      l = mid + 1;
-    } else if (target > nums[mid] && onSameSide(lastEleValue, nums[mid], target)) {
-      l = mid + 1;
-    } else if (target > nums[mid]) {
-      r = mid - 1;
-    } else {
-      return mid;
+    // both on rotated left or both on rotated right
+    if ((target > lastEleValue && nums[mid] > lastEleValue) || (target <= lastEleValue && nums[mid] <= lastEleValue)) {
+      if (nums[mid] < target) {
+        l = mid + 1;
+      } else if (nums[mid] > target) {
+        r = mid - 1;
+      } else {
+        return mid + moveCount;
+      }
     }
+    // mid on left, target on right
+    else if (nums[mid] > lastEleValue && target <= lastEleValue) {
+      l = mid + 1;
+    }
+    // mid on right, target on left
+    else if (nums[mid] <= lastEleValue && target > lastEleValue) {
+      r = mid - 1;
+    }
+
   }
 
   return -1;
@@ -53,12 +66,24 @@ var search = function(nums, target) {
 
 describe('Test', function() {
   it('Should pass', function() {
-    console.log(search([3, 1], 1));
-    // console.log(search());
-    // console.log(search([]));
-    // console.log(search([1, 2, 3, 4, 5], 4));
-    // console.log(search([1, 2, 3, 4, 5], 1));
-    // console.log(search([1, 2, 3, 4, 5], 5));
-    // console.log(search([5, 1, 2, 3, 4], 5));
+    console.log(search([1], 1));
+    console.log(search([1], 0));
+  });
+
+  it('Should pass', function() {
+    console.log(search([3, 3, 3, 4, 5, 1, 2, 3, 3, 3], 4));
+    console.log(search([1, 2, 3, 4, 5], 1));
+    console.log(search([1, 2, 3, 4, 5], 5));
+    console.log(search([5, 1, 2, 3, 4], 5));
+    console.log(search([5, 1, 2, 3, 4], 0));
+    console.log(search([5, 1, 2, 3, 4], 6));
+  });
+
+  it('Should pass', function() {
+    console.log(search([6, 7, 8, 9, 1, 2, 3, 4, 5], 1));
+    console.log(search([6, 7, 8, 9, 1, 2, 3, 4, 5], 7));
+    console.log(search([6, 7, 8, 9, 1, 2, 3, 4, 5], 4));
+    console.log(search([6, 7, 8, 9, 1, 2, 3, 4, 5], 0));
+    console.log(search([6, 7, 8, 9, 1, 2, 3, 4, 5], 10));
   });
 });
