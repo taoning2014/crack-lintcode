@@ -26,7 +26,6 @@ var largestNumber = function(nums) {
   });
 
   strArray.reverse();
-  console.log(strArray);
   // BUG: didn't consider edge case ['0', '0'];
   return parseInt(strArray.join('')) === 0 ? '0' : strArray.join('');
 };
