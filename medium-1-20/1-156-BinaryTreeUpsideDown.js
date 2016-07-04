@@ -16,6 +16,7 @@
 //     / \
 //    3   1
 
+// 太TM聪明了！ Refer：https://leetcode.com/discuss/94151/recursive-space-iterative-solutions-space-explanation-figure
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -28,5 +29,14 @@
  * @return {TreeNode}
  */
 var upsideDownBinaryTree = function(root) {
+  if (!root || !root.left) {
+    return root;
+  }
 
+  let newRoot = upsideDownBinaryTree(root.left);
+  root.left.left = root.right;
+  root.left.right = root;
+  root.left = null;
+  root.right = null;
+  return newRoot;
 };
