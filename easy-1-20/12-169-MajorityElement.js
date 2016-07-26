@@ -9,6 +9,33 @@
 'use strict';
 require('chai').should();
 
+// Solution 7/25
+var majorityElement = function(nums) {
+  if (!Array.isArray(nums) || nums.length === 0) {
+    return NaN;
+  }
+
+  const map = new Map();
+  let curMax = Number.NEGATIVE_INFINITY;
+  let result;
+
+  nums.forEach(num => {
+    if (map.has(num)) {
+      const val = map.get(num) + 1;
+      map.set(num, val);
+      if (val > curMax) {
+        curMax = val;
+        result = num;
+      }
+    } else {
+      map.set(num, 1);
+    }
+  });
+
+
+  return result;
+}
+
 // @param {number[]} nums
 // @return {number}
 var majorityElement = function(nums) {
