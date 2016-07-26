@@ -37,32 +37,57 @@
 //   return result;
 // };
 
-var convertToTitle = function(n) {
-  var aToZArray = ['', 'A', 'B', 'C', 'D', 'E', 'F',
-    'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-  ];
-  var result = '';
-  var curIndex;
+// var convertToTitle = function(n) {
+//   var aToZArray = ['', 'A', 'B', 'C', 'D', 'E', 'F',
+//     'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+//     'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+//   ];
+//   var result = '';
+//   var curIndex;
 
-  if (!Number.isInteger(n) || n < 0) {
+//   if (!Number.isInteger(n) || n < 0) {
+//     return '';
+//   }
+
+//   while (n) {
+//     curIndex = n % 26;
+//     if (!curIndex) {
+//       n -= 26;
+//       result = 'Z' + result;
+//       n = Math.floor(n / 26);
+//     } else {
+//       result = aToZArray[curIndex] + result;
+//       n = Math.floor(n / 26);
+//     }
+//   }
+
+//   return result;
+// };
+
+// Solution: 7/25
+var convertToTitle = function(n) {
+  if (!Number.isInteger(n) || n < 1) {
     return '';
   }
 
-  while (n) {
-    curIndex = n % 26;
-    if (!curIndex) {
-      n -= 26;
-      result = 'Z' + result;
-      n = Math.floor(n / 26);
-    } else {
-      result = aToZArray[curIndex] + result;
-      n = Math.floor(n / 26);
+  const aToZArray = [
+    'Z', 'A', 'B', 'C', 'D', 'E', 'F',
+    'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y'
+  ];
+  let result = '';
+  while (n > 0) {
+    let cur = n % 26;
+    n = Math.floor(n / 26);
+    if (cur === 0) {
+      n--;
     }
+
+    result = aToZArray[cur] + result;
   }
 
   return result;
-};
+}
 
 describe('Test', function () {
   it('Should pass', function () {
