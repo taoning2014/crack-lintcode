@@ -46,6 +46,25 @@ var reverseBits = function(n) {
   return parseInt(bitsArray.join(''), 2);
 };
 
+// Solution: 7/26
+var reverseBits = function(n) {
+  if (!Number.isInteger(n) || n <= 0) {
+    return 0;
+  }
+
+  let result = 0;
+  for (let i = 0; i < 32; i++) {
+    result *= 2;
+    if (n % 2 === 1) {
+      result += 1;
+    }
+
+    n = n >>> 1;
+  }
+
+  return result;
+}
+
 describe('Test', function() {
   it('Should pass', function() {
     console.log(reverseBits(43261596));
