@@ -67,6 +67,18 @@ var rotate = function(nums, k) {
   }
 };
 
+// Solution: 7/26
+var rotate = function(nums, k) {
+  if (!Array.isArray(nums) || !Number.isInteger(k) || k < 1) {
+    return;
+  }
+
+  k = k % nums.length;
+  const left = nums.slice(nums.length - k);
+  nums.splice(nums.length - k);
+
+  Array.prototype.unshift.apply(nums, left);
+}
 
 describe('Test', function() {
   it('Should pass', function() {
