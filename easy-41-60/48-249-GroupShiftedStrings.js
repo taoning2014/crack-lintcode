@@ -80,6 +80,46 @@ var groupStrings = function(strings) {
   return result;
 };
 
+// Solution 2, refer: https://discuss.leetcode.com/topic/20722/my-concise-java-solution
+/**
+ * @param {string[]} strings
+ * @return {string[][]}
+ */
+var groupStrings = function(strings) {
+  if (!Array.isArray(strings)) {
+    return [[]];
+  }
+
+  const map = new Map();
+  for (let i = 0; i < strings.length; i++) {
+    const offset = strings[i].charCodeAt(0) - 'a'.charCodeAt(0);
+    let key = [];
+    for (let j = 0; j < strings[i].length; j++) {
+      let charCode = strings[i].charCodeAt(j) - offset;
+      if (charCode < 'a'.charCodeAt(0)) {
+        charCode += 26;
+      }
+      key[j] = String.fromCharCode(charCode + 'a'.charCodeAt(0));
+    }
+    key = key.join('');
+
+    if (map.has(key)) {
+      map.get(key).push(strings[i]);
+    } else {
+      map.set(key, [strings[i]]);
+    }
+  }
+
+  const result = [];
+  for (let value of map.values()) {
+    value.sort();
+    console.log(value);
+    result.push(value);
+  }
+
+  return result;
+}
+
 describe('Test', function() {
   it('Should pass', function() {
     // console.log(groupStrings());
