@@ -57,6 +57,8 @@ var intersect = function(nums1, nums2) {
   return resultArray;
 };
 
+
+// Solution: 7/26
 describe('Test', function() {
   it('Should pass', function() {
     var result = intersect([1], [1,1]);
