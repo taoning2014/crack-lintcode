@@ -51,6 +51,35 @@ var countBits = function(num) {
   return result;
 };
 
+// Solution: 7/26
+var countBits = function(num) {
+  if (!Number.isInteger(num) || num < 0) {
+    return [];
+  }
+
+  if (num === 0) {
+    return [0];
+  }
+
+  let result = [0];
+  let cur = 1;
+  while (true) {
+    const n = result.length;
+    result = result.concat(result);
+    for (let i = n; i < result.length; i++) {
+      result[i]++;
+    }
+
+    if (cur > num) {
+      break;
+    }
+
+    cur *= 2;
+  }
+
+  return result.slice(0, num + 1);
+}
+
 describe('Test', function() {
   it('Should pass', function() {
     console.log(countBits(0));
