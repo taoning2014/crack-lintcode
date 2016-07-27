@@ -36,7 +36,7 @@ var canPermutePalindrome = function(s) {
 
 describe('Test', function () {
   it('Should pass', function () {
-    canPermutePalindrome('code').should.be.false;
+    canPermutePalindrome('ccce').should.be.false;
   });
 
   it('Should pass', function () {
