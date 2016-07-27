@@ -20,28 +20,57 @@ require('chai').should();
  * @param {number} k
  * @return {number}
  */
+// var maxSubArrayLen = function(nums, k) {
+//   var i;
+//   var j;
+//   var curSum;
+//   var curMaxLen = 0;
+
+//   if (!nums.length) {
+//     return curMaxLen;
+//   }
+
+//   for (i = 0; i < nums.length; i++) {
+//     curSum = 0;
+//     for (j = i; j < nums.length; j++) {
+//       curSum += nums[j];
+//       if (curSum === k && j - i + 1 > curMaxLen) {
+//         curMaxLen = j - i + 1;
+//       }
+//     }
+//   }
+
+//   return curMaxLen;
+// };
+
+// Solution, refer: https://discuss.leetcode.com/topic/33259/o-n-super-clean-9-line-java-solution-with-hashmap
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
 var maxSubArrayLen = function(nums, k) {
-  var i;
-  var j;
-  var curSum;
-  var curMaxLen = 0;
-
-  if (!nums.length) {
-    return curMaxLen;
+  if (!Array.isArray(nums) || !Number.isInteger(k)) {
+    return 0;
   }
 
-  for (i = 0; i < nums.length; i++) {
-    curSum = 0;
-    for (j = i; j < nums.length; j++) {
-      curSum += nums[j];
-      if (curSum === k && j - i + 1 > curMaxLen) {
-        curMaxLen = j - i + 1;
-      }
+  const map = new Map();
+  let curSum = 0;
+  let curMax = 0;
+  for (let i = 0; i < nums.length; i++) {
+    curSum += nums[i];
+    if (curSum === k) {
+      curMax = i + 1;
+    } else if (map.has(curSum - k)) {
+      curMax = Math.max(curMax, i - map.get(curSum - k));
     }
+    if (!map.has(curSum)) {
+      map.set(curSum, i);
+    };
   }
 
-  return curMaxLen;
-};
+  return curMax;
+}
 
 describe('Test', function() {
   it('Should pass', function() {
