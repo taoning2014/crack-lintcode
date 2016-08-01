@@ -58,7 +58,7 @@ var sortTransformedArray = function(nums, a, b, c) {
     return nums;
   }
 
-  const midPoint = (-b / (2 * a));
+  const midPoint = (-b / (2 * a)); // Bug, use to write as: -b / 2 * a
   let lArray = nums.filter(x => x < midPoint);
   let rArray = nums.filter(x => x >= midPoint);
   if (a < 0) {
