@@ -23,10 +23,8 @@
 // Not sure? Think about how you would implement hasNext(). Which is more complex?
 // Common logic in two different places should be refactored into a common method.
 
-/**
- * @constructor
- * @param {Integer[][]} vec2d
- */
+// Solution 1.
+
 var Vector2D = function(vec2d) {
   if (!Array.isArray(vec2d) || vec2d.length === 0) {
     vec2d = [[]];
@@ -84,22 +82,76 @@ Vector2D.prototype.next = function() {
   return val;
 };
 
+// Solution 2: Common logic in two different places should be refactored into a common method.
+/**
+ * @constructor
+ * @param {Integer[][]} vec2d
+ */
+var Vector2D = function(vec2d) {
+  if (!Array.isArray(vec2d) || vec2d.length === 0) {
+    vec2d = [
+      []
+    ];
+  }
+
+  this.vec2d = vec2d;
+  this.row = 0;
+  this.col = 0;
+
+  // jump first empty rows
+  while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
+    this.row++;
+  }
+};
+
+
+/**
+ * @this Vector2D
+ * @returns {boolean}
+ */
+Vector2D.prototype.hasNext = function() {
+  if (this.row === this.vec2d.length) {
+    return false;
+  }
+
+  return true;
+};
+
+/**
+ * @this Vector2D
+ * @returns {integer}
+ */
+Vector2D.prototype.next = function() {
+
+  const val = this.vec2d[this.row][this.col];
+  this.col++;
+
+  if (this.vec2d[this.row][this.col] !== undefined) {
+    return val;
+  }
+
+  // need to handle empty rows
+  this.row++;
+  while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
+    this.row++;
+  }
+
+  this.col = 0;
+
+  return val;
+};
+
 /**
  * Your Vector2D will be called like this:
  * var i = new Vector2D(vec2d), a = [];
  * while (i.hasNext()) a.push(i.next());
  */
 
-var vec = [[0,1,2,3]];
+// var vec = [[0,1,2,3]];
 
-// var vec = [
-//   [],
-//   [],
-//   [1, 2],
-//   [],
-//   [4, 5, 6],
-//   [1, 2]
-// ];
+var vec = [
+  [4,5,6]
+];
 
 var i = new Vector2D(vec);
 while (i.hasNext()) {
