@@ -66,50 +66,94 @@
 //     .map(x => x.join(''));
 // };
 
-var map = {
-  '0': '0',
-  '1': '1',
-  '8': '8',
-  '6': '9',
-  '9': '6'
-};
+// Solution 2.
 
-function permutation(nums, cur, len, result) {
-  if (cur.length === len) {
-    cur = cur.join('');
-    if (isStrobogrammatic(cur)) {
-      result.push(cur);
+// var map = {
+//   '0': '0',
+//   '1': '1',
+//   '8': '8',
+//   '6': '9',
+//   '9': '6'
+// };
+
+// function permutation(nums, cur, len, result) {
+//   if (cur.length === len) {
+//     cur = cur.join('');
+//     if (isStrobogrammatic(cur)) {
+//       result.push(cur);
+//     }
+//     return;
+//   }
+
+//   for (let i = 0; i < nums.length; i++) {
+//     const copyCur = cur.slice();
+//     copyCur.push(nums[i]);
+//     permutation(nums, copyCur, len, result);
+//   }
+// }
+
+// function isStrobogrammatic(x) {
+//   let len = x.length;
+
+//   // last should not be 0
+//   if (len > 1 && x[len - 1] === '0') {
+//     return false;
+//   }
+
+//   // if odd, mid should be '6' or '9'
+//   if (len % 2 === 1 && ['6', '9'].indexOf(x[Math.floor(len / 2)]) !== -1) {
+//     return false;
+//   }
+
+//   for (let i = 0; i < Math.floor(len / 2); i++) {
+//     if (map[x[i]] !== x[len - 1 - i]) {
+//       return false;
+//     }
+//   }
+
+//   return true;
+// }
+
+// /**
+//  * @param {number} n
+//  * @return {string[]}
+//  */
+// var findStrobogrammatic = function(n) {
+//   if (!Number.isInteger(n) || n < 1) {
+//     return [];
+//   }
+
+//   // create permutation
+//   const result = [];
+//   permutation(['0', '1', '6', '8', '9'], [], n, result);
+
+//   return result;
+// };
+
+// Solution 3. Refer: https://discuss.leetcode.com/topic/20753/ac-clean-java-solution/2
+
+function helper(n, m) {
+  if (n === 0) {
+    return [''];
+  }
+
+  if (n === 1) {
+    return ['0', '1', '8'];
+  }
+
+  const result = [];
+  const list = helper(n - 2, m);
+  for (let i = 0; i < list.length; i++) {
+    if (n !== m) {
+      result.push('0' + list[i] + '0');
     }
-    return;
+    result.push('1' + list[i] + '1');
+    result.push('6' + list[i] + '9');
+    result.push('9' + list[i] + '6');
+    result.push('8' + list[i] + '8');
   }
 
-  for (let i = 0; i < nums.length; i++) {
-    const copyCur = cur.slice();
-    copyCur.push(nums[i]);
-    permutation(nums, copyCur, len, result);
-  }
-}
-
-function isStrobogrammatic(x) {
-  let len = x.length;
-
-  // last should not be 0
-  if (len > 1 && x[len - 1] === '0') {
-    return false;
-  }
-
-  // if odd, mid should be '6' or '9'
-  if (len % 2 === 1 && ['6', '9'].indexOf(x[Math.floor(len / 2)]) !== -1) {
-    return false;
-  }
-
-  for (let i = 0; i < Math.floor(len / 2); i++) {
-    if (map[x[i]] !== x[len - 1 - i]) {
-      return false;
-    }
-  }
-
-  return true;
+  return result;
 }
 
 /**
@@ -117,15 +161,7 @@ function isStrobogrammatic(x) {
  * @return {string[]}
  */
 var findStrobogrammatic = function(n) {
-  if (!Number.isInteger(n) || n < 1) {
-    return [];
-  }
-
-  // create permutation
-  const result = [];
-  permutation(['0', '1', '6', '8', '9'], [], n, result);
-
-  return result;
+  return helper(n, n);
 };
 
 console.log(findStrobogrammatic(1));
