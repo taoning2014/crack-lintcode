@@ -67,8 +67,63 @@ var wiggleMaxLength = function(nums) {
       continue;
     }
   }
+  console.log(nums);
+  return result;
+};
+
+// =============================================================================
+// Second time
+// =============================================================================
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var wiggleMaxLength = function(nums) {
+  if (!Array.isArray(nums)) {
+    return 0;
+  }
+
+  if (nums.length < 2) {
+    return nums.length;
+  }
+
+  // move equals
+  let k = 0;
+  while (k < nums.length - 1 && nums[k] === nums[k + 1]) {
+    k++;
+  }
+
+  if (k === nums.length - 1) {
+    return 1;
+  }
+
+  let checkSmaller = nums[k] > nums[k + 1] ? false : true;
+  let result = 2;
+  nums[0] = nums[k];
+  nums[1] = nums[k + 1];
+
+  // 注意，这个for loop的实质是check i + i位，而非i位， 所以nums[result] = nums[i + 1]
+  // 而非 = nums[i]
+  for (let i = k + 1; i < nums.length - 1; i++) {
+    if (checkSmaller && nums[i + 1] < nums[i]) {
+      nums[result] = nums[i + 1];
+      result++;
+      checkSmaller = !checkSmaller;
+      continue;
+    }
+
+    if (!checkSmaller && nums[i + 1] > nums[i]) {
+      nums[result] = nums[i + 1];
+      result++;
+      checkSmaller = !checkSmaller;
+      continue;
+    }
+  }
 
   return result;
 };
 
-console.log(wiggleMaxLength([1,2,3,4,5,6,7,8,9]));
+// console.log(wiggleMaxLength([5,5,5,5,1,8,2,6,3,5]));
+// console.log(wiggleMaxLength([1,2,3,4,5,6,7,8,9]));
+console.log(wiggleMaxLength([1, 7, 4, 9, 2, 5]));

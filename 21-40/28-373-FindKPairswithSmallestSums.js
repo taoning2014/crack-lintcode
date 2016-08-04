@@ -100,7 +100,70 @@
 
 //   return result;
 // };
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @param {number} k
+ * @return {number[][]}
+ */
+// Solution 3. Refer: https://discuss.leetcode.com/topic/50885/simple-java-o-klogk-solution-with-explanation/2
+function exchange(array, p, q) {
+  const temp = array[p];
+  array[p] = array[q];
+  array[q] = temp;
+}
+
+function MinPQ() {
+  this.array = [];
+}
+
+MinPQ.prototype.delMin = function() {
+  let curMin = 0;
+  for (let i = 1; i < this.array.length; i++) {
+    if (this.array[i][0] + this.array[i][1] < this.array[curMin][0] + this.array[curMin][1]) {
+      curMin = i;
+    }
+  }
+  exchange(this.array, curMin, this.array.length - 1);
+  return this.array.pop();
+}
+
+MinPQ.prototype.enqueue = function(item) {
+  this.array.push(item);
+}
+
+MinPQ.prototype.isEmpty = function() {
+  return this.array.length === 0;
+}
+
+var kSmallestPairs = function(nums1, nums2, k) {
+  if (!Array.isArray(nums1) || !Array.isArray(nums2)
+    || nums1.length === 0 || nums2.length === 0
+    || !Number.isInteger(k) || k < 1) {
+    return [];
+  }
+
+  const result = [];
+  const pq = new MinPQ();
+  for (let i = 0; i < nums1.length && i < k; i++) {
+    pq.enqueue([nums1[i], nums2[0], 0]);
+  }
+
+  while (k-- > 0 && !pq.isEmpty()) {
+    const cur = pq.delMin();
+    result.push([cur[0], cur[1]]);
+    if (cur[2] === nums2.length - 1) {
+      continue;
+    }
+
+    pq.enqueue([cur[0], nums2[cur[2] + 1], cur[2] + 1]);
+  }
+
+  return result;
+}
+
 console.log(kSmallestPairs([1, 7, 11], [2, 4, 6], 3));
 console.log(kSmallestPairs([1, 1, 2], [1, 2, 3], 2));
 console.log(kSmallestPairs([1, 2], [3], 3));
-console.log(kSmallestPairs([1,1,2], [1,2,3], 10));
+console.log(kSmallestPairs([1, 1, 2], [1, 2, 3], 10));

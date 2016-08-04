@@ -23,85 +23,154 @@
 // Not sure? Think about how you would implement hasNext(). Which is more complex?
 // Common logic in two different places should be refactored into a common method.
 
-// Solution 1.
+// // Solution 1.
 
-var Vector2D = function(vec2d) {
-  if (!Array.isArray(vec2d) || vec2d.length === 0) {
-    vec2d = [[]];
-  }
+// var Vector2D = function(vec2d) {
+//   if (!Array.isArray(vec2d) || vec2d.length === 0) {
+//     vec2d = [[]];
+//   }
 
-  this.vec2d = vec2d;
-  this.row = 0;
-  this.col = 0;
-};
+//   this.vec2d = vec2d;
+//   this.row = 0;
+//   this.col = 0;
+// };
 
+
+// /**
+//  * @this Vector2D
+//  * @returns {boolean}
+//  */
+// Vector2D.prototype.hasNext = function() {
+//   if (this.vec2d[this.row][this.col] !== undefined) {
+//     return true;
+//   }
+
+//   let nextRow = this.row + 1;
+
+//   // need to handle empty rows
+//   while (nextRow < this.vec2d.length && this.vec2d[nextRow].length === 0) {
+//     nextRow++;
+//   }
+
+//   return nextRow < this.vec2d.length;
+// };
+
+// /**
+//  * @this Vector2D
+//  * @returns {integer}
+//  */
+// Vector2D.prototype.next = function() {
+//   if (this.vec2d[this.row][this.col] !== undefined) {
+//     const val = this.vec2d[this.row][this.col];
+//     this.col++;
+//     return val;
+//   }
+
+//   // need to handle empty rows
+//   this.row++;
+//   while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
+//     this.row++;
+//   }
+
+//   if (this.row === this.vec2d.length) {
+//     return NaN;
+//   }
+
+//   this.col = 0;
+//   const val = this.vec2d[this.row][this.col];
+//   this.col++;
+//   return val;
+// };
+
+// // Solution 2: Common logic in two different places should be refactored into a common method.
+// /**
+//  * @constructor
+//  * @param {Integer[][]} vec2d
+//  */
+// var Vector2D = function(vec2d) {
+//   if (!Array.isArray(vec2d) || vec2d.length === 0) {
+//     vec2d = [
+//       []
+//     ];
+//   }
+
+//   this.vec2d = vec2d;
+//   this.row = 0;
+//   this.col = 0;
+
+//   // jump first empty rows
+//   while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
+//     this.row++;
+//   }
+// };
+
+
+// /**
+//  * @this Vector2D
+//  * @returns {boolean}
+//  */
+// Vector2D.prototype.hasNext = function() {
+//   if (this.row === this.vec2d.length) {
+//     return false;
+//   }
+
+//   return true;
+// };
+
+// /**
+//  * @this Vector2D
+//  * @returns {integer}
+//  */
+// Vector2D.prototype.next = function() {
+
+//   const val = this.vec2d[this.row][this.col];
+//   this.col++;
+
+//   if (this.vec2d[this.row][this.col] !== undefined) {
+//     return val;
+//   }
+
+//   // need to handle empty rows
+//   this.row++;
+//   while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
+//     this.row++;
+//   }
+
+//   this.col = 0;
+
+//   return val;
+// };
 
 /**
- * @this Vector2D
- * @returns {boolean}
+ * Your Vector2D will be called like this:
+ * var i = new Vector2D(vec2d), a = [];
+ * while (i.hasNext()) a.push(i.next());
  */
-Vector2D.prototype.hasNext = function() {
-  if (this.vec2d[this.row][this.col] !== undefined) {
-    return true;
-  }
 
-  let nextRow = this.row + 1;
+// =============================================================================
+// Second time
+// =============================================================================
 
-  // need to handle empty rows
-  while (nextRow < this.vec2d.length && this.vec2d[nextRow].length === 0) {
-    nextRow++;
-  }
-
-  return nextRow < this.vec2d.length;
-};
-
-/**
- * @this Vector2D
- * @returns {integer}
- */
-Vector2D.prototype.next = function() {
-  if (this.vec2d[this.row][this.col] !== undefined) {
-    const val = this.vec2d[this.row][this.col];
-    this.col++;
-    return val;
-  }
-
-  // need to handle empty rows
-  this.row++;
-  while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
-    this.row++;
-  }
-
-  if (this.row === this.vec2d.length) {
-    return NaN;
-  }
-
-  this.col = 0;
-  const val = this.vec2d[this.row][this.col];
-  this.col++;
-  return val;
-};
-
-// Solution 2: Common logic in two different places should be refactored into a common method.
 /**
  * @constructor
  * @param {Integer[][]} vec2d
  */
 var Vector2D = function(vec2d) {
   if (!Array.isArray(vec2d) || vec2d.length === 0) {
-    vec2d = [
+    this.array = [
       []
     ];
   }
 
-  this.vec2d = vec2d;
+  this.array = vec2d;
   this.row = 0;
   this.col = 0;
 
-  // jump first empty rows
-  while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
+  // move empty
+  while (this.row < this.array.length && this.array[this.row].length === 0) {
     this.row++;
   }
+
 };
 
 
@@ -110,11 +179,7 @@ var Vector2D = function(vec2d) {
  * @returns {boolean}
  */
 Vector2D.prototype.hasNext = function() {
-  if (this.row === this.vec2d.length) {
-    return false;
-  }
-
-  return true;
+  return this.row < this.array.length;
 };
 
 /**
@@ -122,21 +187,17 @@ Vector2D.prototype.hasNext = function() {
  * @returns {integer}
  */
 Vector2D.prototype.next = function() {
-
-  const val = this.vec2d[this.row][this.col];
-  this.col++;
-
-  if (this.vec2d[this.row][this.col] !== undefined) {
+  const val = this.array[this.row][this.col++];
+  if (this.col < this.array[this.row].length) {
     return val;
   }
 
-  // need to handle empty rows
+  // move to next no empty row
   this.row++;
-  while (this.row < this.vec2d.length && this.vec2d[this.row].length === 0) {
+  this.col = 0;
+  while (this.row < this.array.length && this.array[this.row].length === 0) {
     this.row++;
   }
-
-  this.col = 0;
 
   return val;
 };
@@ -147,10 +208,17 @@ Vector2D.prototype.next = function() {
  * while (i.hasNext()) a.push(i.next());
  */
 
+
 // var vec = [[0,1,2,3]];
 
 var vec = [
-  [4,5,6]
+  [],
+  [],
+  [1],
+  [],
+  [2, 3],
+  [4, 5, 6],
+  []
 ];
 
 var i = new Vector2D(vec);
