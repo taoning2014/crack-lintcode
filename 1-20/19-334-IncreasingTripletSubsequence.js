@@ -13,7 +13,7 @@
 
 // Given [5, 4, 3, 2, 1],
 // return false.
-
+// 5 7 1 8
 // refer: https://discuss.leetcode.com/topic/37281/clean-and-short-with-comments-c
 
 /**
