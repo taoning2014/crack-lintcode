@@ -1,57 +1,31 @@
-'use strict';
-
-// ========================================================================
-// Time:   5min
-// Submit: 1
-// ========================================================================
-
-// Given a sorted linked list, delete all duplicates such that each element appear only once.
-
-// For example,
-// Given 1->1->2, return 1->2.
-// Given 1->1->2->3->3, return 1->2->3.
-
-// Definition for singly-linked list.
-function ListNode(val) {
-    this.val = val;
-    this.next = null;
-}
-
 /**
- * @param {ListNode} head
- * @return {ListNode}
+ * @param {number} n
+ * @return {number}
  */
-var deleteDuplicates = function(head) {
-  if (!head || !(head instanceof ListNode)) {
-    return null;
+var countPrimes = function(n) {
+  if (!Number.isInteger(n) || n < 1) {
+    return 0;
   }
 
-  let dummy = new ListNode(0);
-  let pre = dummy;
-  dummy.next = head;
+  const isPrime = new Array(n);
+  isPrime.fill(true);
 
-  while (pre.next && pre.next.next) {
-    if (pre.next.val === pre.next.next.val) {
-      pre = pre.next;
-      while (pre.next && pre.next.val === pre.val) {
-        pre.next = pre.next.next
-      }
-    } else {
-      pre = pre.next;
+  for (let i = 2; i < n; i++) {
+    if (!isPrime(i)) {
+      continue;
+    }
+
+    for (let j = i * i; j < n; j += i) {
+      isPrime[j] = false;
     }
   }
 
-  return dummy.next;
+  let count = 0;
+  for (let i = 2; i < n; i++) {
+    if (isPrime(i)) {
+      count++;
+    }
+  }
+
+  return count;
 };
-
-let l1 = new ListNode(1);
-let l2 = new ListNode(1);
-let l3 = new ListNode(1);
-let l4 = new ListNode(3);
-let l5 = new ListNode(3);
-l1.next = l2;
-l2.next = l3;
-l3.next = l4;
-l4.next = l5;
-
-console.log(deleteDuplicates(l1));
