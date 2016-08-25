@@ -21,16 +21,17 @@ function _isFloat(numStr) {
     return _isInteger(numStr);
   }
 
+  // split '.'
   let nums = numStr.split('.');
-  if (nums.length !== 2 || (nums[0] === '' && nums[1] === '')) {
+  // check, (3. or .3 is true)
+  if (nums.length !== 2 || (nums[0] === '' && nums[1] === '') {
     return false;
   }
 
-  if (nums[0] === '+' || nums[0] === '-') {
+  if (nums[0] === '+' || nums[0] === '-' || nums[0] === '') {
     if (nums[1] === '') {
-      return false;
+        return false;
     }
-
     return _isDigit(nums[1]);
   }
 
@@ -39,15 +40,11 @@ function _isFloat(numStr) {
 }
 
 function _isInteger(numStr) {
-  if (!numStr) {
-    return true;
-  }
-
-  // sign
+  // split sign
   if (numStr[0] === '+' || numStr[0] === '-') {
     numStr = numStr.substr(1);
   }
-
+  // check sign
   if (numStr === '') {
     return false;
   }
